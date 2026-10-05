@@ -4,14 +4,14 @@ set -e
 # ============================================================
 # Build Armbian Trixie Image with WiFi Driver Injected
 # Target: B860H / HG680P (Amlogic S905X)
-# Kernel: 6.12.107-ophub
+# Kernel: 6.12.112-ophub
 # ============================================================
 
-OPHUB_URL="https://github.com/ophub/amlogic-s9xxx-armbian/releases/download/Armbian_trixie_arm64_server_2026.09"
-BASE_IMAGE="Armbian_26.11.0_amlogic_s905x-b860h_trixie_6.12.107_server_2026.09.01.img.gz"
-DRIVER_URL="https://github.com/jhopan/Armbian-Wifi-on/releases/download/v1.0.0/8189fs.ko"
+OPHUB_URL="https://github.com/ophub/amlogic-s9xxx-armbian/releases/download/Armbian_trixie_arm64_server_2026.10"
+BASE_IMAGE="Armbian_26.11.0_amlogic_s905l-mg101_trixie_6.12.111_server_2026.10.01.img.gz"
+DRIVER_URL="https://github.com/monw/amlogic-s9xxx-armbian/releases/download/Armbian_trixie_b860av11t_2026.10/8189fs-6.12.111-ophub.ko"
 QUICK_INSTALL_URL="https://raw.githubusercontent.com/jhopan/Armbian-Wifi-on/main/quick-install.sh"
-KVER="6.12.107-ophub"
+KVER="6.12.111-ophub"
 
 echo "=========================================================="
 echo "  Build Armbian Trixie WiFi-ON Image"
@@ -65,7 +65,7 @@ echo "[7/7] Injecting driver and locking kernel..."
 mkdir -p "/mnt/armbian/lib/modules/${KVER}/kernel/drivers/net/wireless/realtek/rtl8189fs"
 
 # Copy driver
-cp 8189fs.ko "/mnt/armbian/lib/modules/${KVER}/kernel/drivers/net/wireless/realtek/rtl8189fs/8189fs.ko"
+cp 8189fs-6.12.112-ophub.ko "/mnt/armbian/lib/modules/${KVER}/kernel/drivers/net/wireless/realtek/rtl8189fs/8189fs.ko"
 
 # Auto-load config
 echo "8189fs" > "/mnt/armbian/etc/modules-load.d/8189fs.conf"
@@ -156,8 +156,8 @@ umount /mnt/armbian 2>/dev/null || true
 losetup -d "${LOOP_DEV}" 2>/dev/null || true
 
 # Rename dan compress
-mv "${IMG_FILE}" "Armbian-Trixie-6.12.107-WifiON-B860H-HG680P.img"
-gzip -9 "Armbian-Trixie-6.12.107-WifiON-B860H-HG680P.img"
+mv "${IMG_FILE}" "Armbian-Trixie-6.12.112-WifiON-MG101.img"
+gzip -9 "Armbian-Trixie-6.12.112-WifiON-MG101.img"
 
 echo "Done!"
-ls -lh "Armbian-Trixie-6.12.107-WifiON-B860H-HG680P.img.gz"
+ls -lh "Armbian-Trixie-6.12.112-WifiON-MG101.img.gz"
