@@ -65,7 +65,7 @@ echo "[7/7] Injecting driver and locking kernel..."
 mkdir -p "/mnt/armbian/lib/modules/${KVER}/kernel/drivers/net/wireless/realtek/rtl8189fs"
 
 # Copy driver
-cp 8189fs-${KVER}.ko "/mnt/armbian/lib/modules/${KVER}/kernel/drivers/net/wireless/realtek/rtl8189fs/8189fs.ko"
+cp 8189fs.ko "/mnt/armbian/lib/modules/${KVER}/kernel/drivers/net/wireless/realtek/rtl8189fs/8189fs.ko"
 
 # Auto-load config
 echo "8189fs" > "/mnt/armbian/etc/modules-load.d/8189fs.conf"
