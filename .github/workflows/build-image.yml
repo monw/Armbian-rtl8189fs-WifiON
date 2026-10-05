@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-26.04-arm
     if: ${{ github.event.repository.owner.id == github.event.sender.id }}
     permissions:
       contents: write
@@ -21,7 +21,7 @@ jobs:
       - name: Build image
         run: |
           chmod +x build-image.sh
-          bash build-image.sh
+          sudo bash build-image.sh
 
       - name: Upload image to artifact
         uses: actions/upload-artifact@v4
